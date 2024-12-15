@@ -6,12 +6,12 @@ from datetime import datetime
 DATA_SOURCES = {
     "carbon_levels": "https://api.carbontracker.org/v1/data",
     "temperature": "https://www.ncdc.noaa.gov/cdo-web/api/v2/data",
-    "ocean_acidity": "https://api.copernicus.eu/ocean/acidity",
+    "ocean_acidity": "https://www.pmel.noaa.gov/co2/story/Ocean+Acidification",
 }
 
 HEADERS = {
-    "noaa": {"token": "<YOUR_NOAA_API_TOKEN>"},
-    "copernicus": {"Authorization": "Bearer <YOUR_COPERNICUS_TOKEN>"},
+    "noaa": {"token": "<fbFiNXdMFdKefPnFAzwbmsWgSyZhlzSQ>"},
+    "pmel": {"Authorization": "Bearer <fbFiNXdMFdKefPnFAzwbmsWgSyZhlzSQ>"},
 }
 
 def fetch_data(source_name, url, headers=None):
