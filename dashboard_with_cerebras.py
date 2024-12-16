@@ -14,7 +14,7 @@ data = pd.read_csv("processed/processed_climate_data.csv")
 # Cerebras API Configuration
 CEREBRAS_API_URL = "https://api.cerebras.ai/v1/generate"
 CEREBRAS_HEADERS = {
-    "Authorization": "Bearer YOUR_API_KEY",
+    "Authorization": "Bearer csk-w9kx62etv68c9rkdt382f3dc8vnmerrtr8ewxf55vyd4en29",
     "Content-Type": "application/json"
 }
 
