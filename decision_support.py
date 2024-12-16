@@ -1,26 +1,23 @@
-import numpy as np
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
+import requests
 
-# Load Data
-data = np.load("processed/decision_data.npy")
-X = data[:, :-1]  # Features
-y = data[:, -1]   # Labels
+CEREBRAS_API_URL = "https://api.cerebras.ai/v1/generate"
+CEREBRAS_HEADERS = {
+    "Authorization": "Bearer csk-w9kx62etv68c9rkdt382f3dc8vnmerrtr8ewxf55vyd4en29",
+    "Content-Type": "application/json"
+}
 
-# Split Data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Decision Support Logic
+def real_time_recommendation(state):
+    prompt = f"Analyze the state: {state} and provide the best climate interventions."
+    payload = {
+        "model": "llama3.1-70b",
+        "prompt": prompt,
+        "max_tokens": 100
+    }
+    response = requests.post(CEREBRAS_API_URL, headers=CEREBRAS_HEADERS, json=payload)
+    return response.json()
 
-# Train Model
-clf = RandomForestClassifier(n_estimators=100, random_state=42)
-clf.fit(X_train, y_train)
-
-# Evaluate Model
-y_pred = clf.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
-print(f"Decision Support Model Accuracy: {accuracy}")
-
-# Example Recommendation
-example_state = np.array([0.5, 0.3, 0.2, 0.7]).reshape(1, -1)
-recommendation = clf.predict(example_state)
-print(f"Recommended Intervention: {recommendation}")
+if __name__ == "__main__":
+    example_state = "High CO2 levels, rising temperatures, and significant deforestation."
+    recommendation = real_time_recommendation(example_state)
+    print("Recommended Intervention:", recommendation["choices"][0]["text"])
